@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient"
+    tools:context=".Main2Activity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/rr"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="UV INIT"
+            android:id="@+id/uvinit"
+            android:padding="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:background="@layout/rb"/>
+        <ImageView
+            android:id="@+id/switch2"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_power_settings_new_red_24dp"
+            android:layout_toRightOf="@+id/uvinit"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="17dp"
+            />
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="80dp"
+            android:id="@+id/kciri"
+            android:layout_marginLeft="70dp"
+            android:layout_toRightOf="@id/switch2"
+            android:src="@drawable/anyconvcom__kci" />
+<Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_toRightOf="@+id/kciri"
+    android:padding="8dp"
+    android:id="@+id/connect"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="20dp"
+    android:background="@layout/rb"
+    android:text="Connect"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="UV ON"
+            android:id="@+id/uvon"
+            android:padding="8dp"
+       android:layout_toLeftOf="@+id/switch1"
+            android:layout_marginTop="10dp"
+            android:background="@layout/rb"/>
+        <ImageView
+            android:id="@+id/switch1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_power_settings_new_red_24dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="7dp"
+            android:layout_marginRight="20dp"
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rr"
+        android:layout_alignParentRight="true">
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="25dp"
+android:layout_marginTop="110dp"
+            android:layout_alignParentRight="true"
+            android:buttonTint="@color/colorcheckon"
+            android:id="@+id/radright"/>
+        <ImageView
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:id="@+id/arrowright"
+            android:layout_marginTop="95dp"
+            android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
+            android:layout_toLeftOf="@+id/radright"
+            />
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:id="@+id/radup"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/arrowright"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="20dp"
+            android:buttonTint="@color/colorcheckon"
+            />
+        <ImageView
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:id="@+id/arrowup"
+        android:layout_below="@+id/radup"
+            android:layout_marginRight="0dp"
+            android:layout_toLeftOf="@id/arrowright"
+
+            android:src="@drawable/ic_keyboard_arrow_up_black_24dp"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:id="@+id/radbe"
+            android:layout_height="wrap_content"
+           android:layout_below="@+id/arrowbe"
+            android:layout_toLeftOf="@+id/arrowright"
+            android:layout_marginRight="20dp"
+            android:buttonTint="@color/colorcheckon"
+            />
+        <ImageView
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:id="@+id/arrowbe"
+          android:layout_below="@id/arrowright"
+android:layout_marginTop="-25dp"
+            android:layout_marginRight="0dp"
+            android:layout_toLeftOf="@id/arrowright"
+            android:src="@drawable/ic_keyboard_arrow_down_black_24dp"/>
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:id="@+id/radleft"
+            android:layout_height="wrap_content"
+           android:layout_toLeftOf="@+id/arrowleft"
+            android:layout_below="@id/arrowup"
+            android:layout_marginTop="5dp"
+            android:buttonTint="@color/colorcheckon"
+            />
+        <ImageView
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:id="@+id/arrowleft"
+            android:layout_below="@id/arrowup"
+            android:layout_marginTop="-15dp"
+            android:layout_marginRight="0dp"
+            android:layout_toLeftOf="@id/arrowup"
+            android:src="@drawable/ic_keyboard_arrow_left_black_24dp"/>
+<!--        <EditText-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:id="@+id/we"-->
+<!--            android:hint="IP ADDRESS"/>-->
+
+        <WebView
+            android:layout_width="400dp"
+            android:layout_height="290dp"
+
+            android:id="@+id/video"
+
+            android:layout_toLeftOf="@id/radleft"
+            tools:ignore="WebViewLayout" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/timer"
+            android:text="00:00"
+            android:layout_toRightOf="@id/video"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="50dp"
+            android:textSize="30dp"/>
+    </RelativeLayout>
+
+</RelativeLayout>
