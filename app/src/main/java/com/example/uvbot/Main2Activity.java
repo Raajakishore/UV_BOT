@@ -30,7 +30,6 @@ Primr primr;
 boolean st=false;
 Button uvinit;
 CountDownTimer count;
-Prim prim;
 int f1=2,b1=2,r1=2,l1=2;
 char dd=' ';
 RadioButton radup;
@@ -38,7 +37,7 @@ WebView videoView;
 String ip;
 RadioButton radbelow;
 char d;
-String url="http://192.168.43.223:8080/";
+String url="http://10.1.45.228:8080/";
 RadioButton radright;
 Button connect;
 RadioButton radleft;
@@ -82,13 +81,12 @@ ImageView arrowright;
                     sockket.execute();
                 }
                 else{
-                    if(data.equals("s")){
                         if(primr!=null){
                             if(primr.isAlive()){
                                 st=true;
                             }
                         }
-                    }
+
                     else{
                         Toast.makeText(getApplicationContext(),"Bot is running",Toast.LENGTH_LONG).show();
                     }
@@ -211,6 +209,7 @@ arrowup.setOnTouchListener(new View.OnTouchListener() {
                         arrowright.setImageResource(R.drawable.ic_keyboard_arrow_right_black_24dp);
                     }}
                 }
+
                 catch (Exception e){
                 };
                 return true;
@@ -218,47 +217,48 @@ arrowup.setOnTouchListener(new View.OnTouchListener() {
         });
 
     }
-    public class Prim extends  Thread{
-        Socket socket;
-        @Override
-        public void run() {
-          while (true){
-              if(data.equals("s") && st==true){
-                  break;
-              }
-            try {
-                ip = "192.168.43.223";
-                InetAddress inetAddress = InetAddress.getByName(ip);
-                socket = new Socket(inetAddress, 8134);
-                final InputStreamReader inputStreamReader = new InputStreamReader(socket.getInputStream());
-                dd  = (char) (inputStreamReader.read());
-                inputStreamReader.close();
-                socket.close();
-            } catch (UnknownHostException ex) {
-                ex.printStackTrace();
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getApplicationContext(),"Error Occured",Toast.LENGTH_SHORT).show();
-                        st=true;
-                    }
-                });
-break;
-            } catch (IOException ex) {
-                ex.printStackTrace();
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getApplicationContext(),"Error Occured",Toast.LENGTH_SHORT).show();
-                        st=true;
-                    }
-                });
-            break;}
-              }
-            super.run();
-
-        }
-    }
+//    public class Prim extends  Thread{
+//        Socket socket;
+//        @Override
+//        public void run() {
+//          while (true){
+//              if(data.equals("s") && st==true){
+//                  break;
+//              }
+//            try {
+//                ip = "10.1.45.228";
+//                InetAddress inetAddress = InetAddress.getByName(ip);
+//                socket = new Socket(inetAddress, 8134);
+//                final InputStreamReader inputStreamReader = new InputStreamReader(socket.getInputStream());
+//                dd  = (char) (inputStreamReader.read());
+//                inputStreamReader.close();
+//                socket.close();
+//            } catch (UnknownHostException ex) {
+//                ex.printStackTrace();
+//                runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        Toast.makeText(getApplicationContext(),"Error Occured",Toast.LENGTH_SHORT).show();
+//                        st=true;
+//                    }
+//                });
+//break;
+//            }
+//            catch (IOException ex) {
+//                ex.printStackTrace();
+//                runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        Toast.makeText(getApplicationContext(),"Error Occured",Toast.LENGTH_SHORT).show();
+//                        st=true;
+//                    }
+//                });
+//            break;}
+//              }
+//            super.run();
+//
+//        }
+//    }
     void gg(){
         runOnUiThread(new Runnable() {
             @Override
@@ -267,7 +267,7 @@ break;
                 arrowbelow.setImageResource(R.drawable.ic_keyboard_arrow_down_black_24dp);
                 arrowright.setImageResource(R.drawable.ic_keyboard_arrow_right_black_24dp);
                 arrowleft.setImageResource(R.drawable.ic_keyboard_arrow_left_black_24dp);
-                radup.setEnabled(false);radup.setChecked(true);
+                radup.setEnabled(false);radup.setChecked(false);
                 radbelow.setEnabled(false);radbelow.setChecked(false);
                 radleft.setEnabled(false);radright.setChecked(false);
                 radright.setEnabled(false);radleft.setChecked(false);
@@ -280,22 +280,23 @@ break;
         public void run() {
             InetAddress inetAddress = null;
         while(true){
+
             try {
                 if(data.equals("s") && st==true  ){
                     gg();
                     break;
-
                 }
-                if(!data.equals("s") && st==true  ){
+                else if(!data.equals("s") && st==true){
                     data="s";
                     soc();
                     gg();
                     break;
                 }
-                inetAddress = InetAddress.getByName("192.168.43.223");
+                inetAddress = InetAddress.getByName("10.1.45.228");
                 Socket socket = new Socket(inetAddress,8334);
                 InputStreamReader inputStreamReader = new InputStreamReader(socket.getInputStream());
                 d  = (char) (inputStreamReader.read());
+                Log.d("Rombamukkiyam", "run: " + d);
                 runOnUiThread(new Runnable() {
 
                     @Override
@@ -368,8 +369,10 @@ break;
                 inputStreamReader.close();
                 socket.close();
             } catch (UnknownHostException e) {
+                Log.d("eroorrrrreee", "doInBackground: "+ e.toString());
                 e.printStackTrace();
             } catch (IOException e) {
+                Log.d("eroorrrrree", "doInBackground: "+ e.toString());
                 e.printStackTrace();
             }
        }
@@ -391,6 +394,7 @@ break;
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                timer.setText("00:00");
                 count=  new CountDownTimer(86400000,1000){
 
                     @Override
@@ -428,7 +432,7 @@ break;
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                timer.setText("00:00");
+
                 countt=0;
                 count.cancel();
             }
@@ -446,7 +450,7 @@ break;
             try {
                 if(!data.equals("s")){
                     prev= data;
-                    ip = "192.168.43.223";
+                    ip = "10.1.45.228";
                     InetAddress inetAddress = InetAddress.getByName(ip);
                     socket = new Socket(inetAddress, 8234);
                     final DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
@@ -457,7 +461,7 @@ break;
 
                     if(prev!="s"){
                         prev= "s";
-                        ip = "192.168.43.223";
+                        ip = "10.1.45.228";
                         InetAddress inetAddress = InetAddress.getByName(ip);
                         socket = new Socket(inetAddress, 8234);
                         final DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
@@ -468,6 +472,7 @@ break;
                 }
             }
             catch (IOException e) {
+                Log.d("eroorrrrre", "doInBackground: "+ e.toString());
                 e.printStackTrace();
             }
 
@@ -481,7 +486,7 @@ break;
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                 ip = "192.168.43.223";
+                 ip = "10.1.45.228";
                 InetAddress inetAddress = InetAddress.getByName(ip);
                 socket = new Socket(inetAddress, 8134);
                 final InputStreamReader inputStreamReader = new InputStreamReader(socket.getInputStream());
@@ -492,8 +497,6 @@ break;
                         if(dd=='c'){
                             primr =new Primr();
                             primr.start();
-                            prim = new Prim();
-                            prim.start();
                             videoView.setWebViewClient(new WebViewClient());
                             videoView.getSettings().setJavaScriptEnabled(true);
                             videoView.loadUrl(url);
@@ -505,11 +508,25 @@ break;
                 inputStreamReader.close();
                 socket.close();
             } catch (UnknownHostException ex) {
+                Log.d("eroorrrrr1", "doInBackground: "+ ex.toString());
                 ex.printStackTrace();
-                Toast.makeText(getApplicationContext(),"Error Occured",Toast.LENGTH_LONG).show();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(),"Error Occured",Toast.LENGTH_LONG).show();
+                    }
+                });
+
             } catch (IOException ex) {
+                Log.d("eroorrrrr2", "doInBackground: "+ ex.toString());
                 ex.printStackTrace();
-                Toast.makeText(getApplicationContext(),"Error Occured",Toast.LENGTH_LONG).show();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(),"Error Occured",Toast.LENGTH_LONG).show();
+                    }
+                });
+
             }
             return null;
         }
