@@ -1,10 +1,16 @@
 package com.example.uvbot;
 import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
-import android.content.Intent;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.text.format.Formatter;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -29,6 +35,8 @@ Button uvon;
 Primr primr;
 boolean st=false;
 Button uvinit;
+SharedPreferences sharedPreferences;
+final  static String ID = "ID";
 CountDownTimer count;
 int f1=2,b1=2,r1=2,l1=2;
 char dd=' ';
@@ -37,7 +45,7 @@ WebView videoView;
 String ip;
 RadioButton radbelow;
 char d;
-String url="http://10.1.45.228:8080/";
+String url="http://192.168.0.105:8080/";
 RadioButton radright;
 Button connect;
 RadioButton radleft;
@@ -48,12 +56,16 @@ int countt=0;
 TextView timer;
 ImageView arrowbelow;
 ImageView arrowleft;
+EditText editText;
 ImageView arrowright;
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+//        String ssid= getCurrentSsid(getApplicationContext());
+//        Toast.makeText(getApplicationContext(),"ssid",Toast.LENGTH_LONG);
+        editText= findViewById(R.id.ipaddress);
         s1 = findViewById(R.id.switch1);
         timer = findViewById(R.id.timer);
         s2 = findViewById(R.id.switch2);
@@ -73,24 +85,39 @@ ImageView arrowright;
         radbelow.setEnabled(false);
         radleft.setEnabled(false);
         radright.setEnabled(false);
+        SharedPreferences sharedPreferences1 = getPreferences(MODE_PRIVATE);
+        ip = sharedPreferences1.getString("ip","192.168.43.223");
+        editText.setText(ip);
         connect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(connect.getText().toString().equals("Connect")){
-                    Sockket sockket= new Sockket();
-                    sockket.execute();
+
+                if(editText.getText().toString().isEmpty()){
+                    Toast.makeText(getApplicationContext(),"Enter ipaddress",Toast.LENGTH_LONG).show();
                 }
                 else{
+                    ip=editText.getText().toString();
+                    sharedPreferences = getSharedPreferences(ID,MODE_PRIVATE);
+                    SharedPreferences.Editor editor= sharedPreferences.edit();
+                    editor.putString("ip",ip);
+                    editor.apply();
+                    if(connect.getText().toString().equals("Connect")){
+                        Sockket sockket= new Sockket();
+                        sockket.execute();
+                    }
+                    else{
                         if(primr!=null){
                             if(primr.isAlive()){
                                 st=true;
                             }
                         }
 
-                    else{
-                        Toast.makeText(getApplicationContext(),"Bot is running",Toast.LENGTH_LONG).show();
+                        else{
+                            Toast.makeText(getApplicationContext(),"Bot is running",Toast.LENGTH_LONG).show();
+                        }
                     }
                 }
+
             }
         });
 uvon.setOnClickListener(new View.OnClickListener() {
@@ -226,7 +253,7 @@ arrowup.setOnTouchListener(new View.OnTouchListener() {
 //                  break;
 //              }
 //            try {
-//                ip = "10.1.45.228";
+//                ip = "192.168.0.105";
 //                InetAddress inetAddress = InetAddress.getByName(ip);
 //                socket = new Socket(inetAddress, 8134);
 //                final InputStreamReader inputStreamReader = new InputStreamReader(socket.getInputStream());
@@ -259,6 +286,19 @@ arrowup.setOnTouchListener(new View.OnTouchListener() {
 //
 //        }
 //    }
+public static String getCurrentSsid(Context context) {
+    String ssid = null;
+    ConnectivityManager connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+    NetworkInfo networkInfo = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+    if (networkInfo.isConnected()) {
+        final WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        final WifiInfo connectionInfo = wifiManager.getConnectionInfo();
+        if (connectionInfo != null && !connectionInfo.getSSID().isEmpty()) {
+            ssid = connectionInfo.getSSID();
+        }
+    }
+    return ssid;
+}
     void gg(){
         runOnUiThread(new Runnable() {
             @Override
@@ -292,7 +332,7 @@ arrowup.setOnTouchListener(new View.OnTouchListener() {
                     gg();
                     break;
                 }
-                inetAddress = InetAddress.getByName("10.1.45.228");
+                inetAddress = InetAddress.getByName("192.168.0.105");
                 Socket socket = new Socket(inetAddress,8334);
                 InputStreamReader inputStreamReader = new InputStreamReader(socket.getInputStream());
                 d  = (char) (inputStreamReader.read());
@@ -450,7 +490,7 @@ arrowup.setOnTouchListener(new View.OnTouchListener() {
             try {
                 if(!data.equals("s")){
                     prev= data;
-                    ip = "10.1.45.228";
+                    ip = "192.168.0.105";
                     InetAddress inetAddress = InetAddress.getByName(ip);
                     socket = new Socket(inetAddress, 8234);
                     final DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
@@ -461,7 +501,7 @@ arrowup.setOnTouchListener(new View.OnTouchListener() {
 
                     if(prev!="s"){
                         prev= "s";
-                        ip = "10.1.45.228";
+                        ip = "192.168.0.105";
                         InetAddress inetAddress = InetAddress.getByName(ip);
                         socket = new Socket(inetAddress, 8234);
                         final DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
@@ -486,7 +526,7 @@ arrowup.setOnTouchListener(new View.OnTouchListener() {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                 ip = "10.1.45.228";
+                 ip = "192.168.0.105";
                 InetAddress inetAddress = InetAddress.getByName(ip);
                 socket = new Socket(inetAddress, 8134);
                 final InputStreamReader inputStreamReader = new InputStreamReader(socket.getInputStream());

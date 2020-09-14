@@ -32,13 +32,20 @@
             android:layout_width="150dp"
             android:layout_height="80dp"
             android:id="@+id/kciri"
-            android:layout_marginLeft="70dp"
+            android:layout_marginLeft="5dp"
             android:layout_toRightOf="@id/switch2"
             android:src="@drawable/anyconvcom__kci" />
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/kciri"
+            android:id="@+id/ipaddress"
+            android:layout_marginTop="10dp"
+            android:hint="Enter ip adress "/>
 <Button
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_toRightOf="@+id/kciri"
+    android:layout_toRightOf="@+id/ipaddress"
     android:padding="8dp"
     android:id="@+id/connect"
     android:layout_marginTop="10dp"
@@ -148,8 +155,8 @@ android:layout_marginTop="-25dp"
 <!--            android:hint="IP ADDRESS"/>-->
 
         <WebView
-            android:layout_width="400dp"
-            android:layout_height="290dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
 
             android:id="@+id/video"
 
