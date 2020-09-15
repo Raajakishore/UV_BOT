@@ -45,7 +45,7 @@ WebView videoView;
 String ip;
 RadioButton radbelow;
 char d;
-String url="http://192.168.0.105:8080/";
+String url;
 RadioButton radright;
 Button connect;
 RadioButton radleft;
@@ -101,6 +101,7 @@ ImageView arrowright;
                     SharedPreferences.Editor editor= sharedPreferences.edit();
                     editor.putString("ip",ip);
                     editor.apply();
+                    url  ="http://"+ip+":8080/";
                     if(connect.getText().toString().equals("Connect")){
                         Sockket sockket= new Sockket();
                         sockket.execute();
@@ -253,7 +254,7 @@ arrowup.setOnTouchListener(new View.OnTouchListener() {
 //                  break;
 //              }
 //            try {
-//                ip = "192.168.0.105";
+//
 //                InetAddress inetAddress = InetAddress.getByName(ip);
 //                socket = new Socket(inetAddress, 8134);
 //                final InputStreamReader inputStreamReader = new InputStreamReader(socket.getInputStream());
@@ -332,7 +333,7 @@ public static String getCurrentSsid(Context context) {
                     gg();
                     break;
                 }
-                inetAddress = InetAddress.getByName("192.168.0.105");
+                inetAddress = InetAddress.getByName(ip);
                 Socket socket = new Socket(inetAddress,8334);
                 InputStreamReader inputStreamReader = new InputStreamReader(socket.getInputStream());
                 d  = (char) (inputStreamReader.read());
@@ -490,7 +491,6 @@ public static String getCurrentSsid(Context context) {
             try {
                 if(!data.equals("s")){
                     prev= data;
-                    ip = "192.168.0.105";
                     InetAddress inetAddress = InetAddress.getByName(ip);
                     socket = new Socket(inetAddress, 8234);
                     final DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
@@ -501,7 +501,7 @@ public static String getCurrentSsid(Context context) {
 
                     if(prev!="s"){
                         prev= "s";
-                        ip = "192.168.0.105";
+
                         InetAddress inetAddress = InetAddress.getByName(ip);
                         socket = new Socket(inetAddress, 8234);
                         final DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
@@ -526,7 +526,7 @@ public static String getCurrentSsid(Context context) {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                 ip = "192.168.0.105";
+
                 InetAddress inetAddress = InetAddress.getByName(ip);
                 socket = new Socket(inetAddress, 8134);
                 final InputStreamReader inputStreamReader = new InputStreamReader(socket.getInputStream());
