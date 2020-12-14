@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="10dp"
+    android:background="#FFFFFF"
+    android:paddingRight="10dp"
+    android:gravity="center"
+    android:layout_gravity="center">
+
+    <TextView
+        android:id="@+id/Relay1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/playfair_display_italic"
+        android:text="          Instructions"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/tt5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Relay1"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/pt_sans"
+        android:text="Ensure there is no human presence before turning on UV - Light"
+        android:textColor="#171616"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/Relay2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tt5"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/pt_sans"
+        android:text="Check the battery level"
+
+
+        android:textColor="#171616"
+        android:textSize="20sp" />
+    <TextView
+        android:id="@+id/tt7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Relay2"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/pt_sans"
+        android:text="Don't push the app to the background or lock the screen while UV - Bot is connected"
+
+
+        android:textColor="#171616"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/tt6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tt7"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/pt_sans"
+        android:text=" Let's proceed "
+        android:background="@layout/rb"
+        android:layout_marginLeft="100dp"
+        android:textSize="20sp" />
+
+
+</RelativeLayout>

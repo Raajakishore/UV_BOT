@@ -30,15 +30,14 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 public class Main2Activity extends AppCompatActivity {
 ImageView s1;
-ImageView s2;
 Button uvon;
 Primr primr;
+String dete="q";
 boolean st=false;
-Button uvinit;
 SharedPreferences sharedPreferences;
 final  static String ID = "ID";
 CountDownTimer count;
-int f1=2,b1=2,r1=2,l1=2;
+int f1=0,b1=0,r1=0,l1=0;
 char dd=' ';
 RadioButton radup;
 WebView videoView;
@@ -54,7 +53,9 @@ String data="s",prev="s";
 int c=0;
 int countt=0;
 TextView timer;
+int j=0,k=0;
 ImageView arrowbelow;
+public static String IP="";
 ImageView arrowleft;
 EditText editText;
 ImageView arrowright;
@@ -63,12 +64,12 @@ ImageView arrowright;
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+
 //        String ssid= getCurrentSsid(getApplicationContext());
 //        Toast.makeText(getApplicationContext(),"ssid",Toast.LENGTH_LONG);
         editText= findViewById(R.id.ipaddress);
         s1 = findViewById(R.id.switch1);
         timer = findViewById(R.id.timer);
-        s2 = findViewById(R.id.switch2);
         connect=findViewById(R.id.connect);
         radup= findViewById(R.id.radup);
         radbelow = findViewById(R.id.radbe);
@@ -79,14 +80,13 @@ ImageView arrowright;
         arrowright=findViewById(R.id.arrowright);
         videoView   = findViewById(R.id.video);
         uvon = findViewById(R.id.uvon);
-        uvinit = findViewById(R.id.uvinit);
         arrowup = findViewById(R.id.arrowup);
         radup.setEnabled(false);
         radbelow.setEnabled(false);
         radleft.setEnabled(false);
         radright.setEnabled(false);
         SharedPreferences sharedPreferences1 = getPreferences(MODE_PRIVATE);
-        ip = sharedPreferences1.getString("ip","192.168.43.223");
+        ip = sharedPreferences1.getString("ip","10.1.45.228");
         editText.setText(ip);
         connect.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,6 +101,7 @@ ImageView arrowright;
                     SharedPreferences.Editor editor= sharedPreferences.edit();
                     editor.putString("ip",ip);
                     editor.apply();
+                    IP=ip;
                     url  ="http://"+ip+":8080/";
                     if(connect.getText().toString().equals("Connect")){
                         Sockket sockket= new Sockket();
@@ -109,6 +110,7 @@ ImageView arrowright;
                     else{
                         if(primr!=null){
                             if(primr.isAlive()){
+                                Log.d("primrisalive", "onClick: ");
                                 st=true;
                             }
                         }
@@ -121,35 +123,36 @@ ImageView arrowright;
 
             }
         });
+
 uvon.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-          if(uvon.getText().toString().equals("UV ON")){
-
-          s1.setImageResource(R.drawable.ic_power_settings_new_black_24dp);
-          uvon.setText("UV OFF");
-      }
-      else{
-          s1.setImageResource(R.drawable.ic_power_settings_new_red_24dp);
-          uvon.setText("UV ON");
-      }
-    }
-});
-uvinit.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        if(c==0){
-
-            s2.setImageResource(R.drawable.ic_power_settings_new_black_24dp);
-            c=1;
+        if(connect.getText().toString().equals("Disconnect")){
+            if(c==0){
+                dete="p";
+                Raaj raaj = new Raaj();
+                raaj.execute();
+                s1.setImageResource(R.drawable.ic_power_settings_new_black_24dp);
+                Toast.makeText(getApplicationContext(),"UV Light is turned on",Toast.LENGTH_LONG).show();
+                c=1;
+            }
+            else{
+                dete="q";
+                Raaj raaj = new Raaj();
+                raaj.execute();
+                s1.setImageResource(R.drawable.ic_power_settings_new_red_24dp);
+                Toast.makeText(getApplicationContext(),"UV Light is turned off",Toast.LENGTH_LONG).show();
+                c=0;
+            }
         }
         else{
-            s2.setImageResource(R.drawable.ic_power_settings_new_red_24dp);
-            c=0;
-
+            Toast.makeText(getApplicationContext(),"Connect to the UV - BOT",Toast.LENGTH_LONG).show();
         }
+
+
     }
 });
+
 arrowup.setOnTouchListener(new View.OnTouchListener() {
     @Override
     public boolean onTouch(View v, MotionEvent event) {
@@ -287,19 +290,7 @@ arrowup.setOnTouchListener(new View.OnTouchListener() {
 //
 //        }
 //    }
-public static String getCurrentSsid(Context context) {
-    String ssid = null;
-    ConnectivityManager connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-    NetworkInfo networkInfo = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-    if (networkInfo.isConnected()) {
-        final WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-        final WifiInfo connectionInfo = wifiManager.getConnectionInfo();
-        if (connectionInfo != null && !connectionInfo.getSSID().isEmpty()) {
-            ssid = connectionInfo.getSSID();
-        }
-    }
-    return ssid;
-}
+
     void gg(){
         runOnUiThread(new Runnable() {
             @Override
@@ -312,7 +303,11 @@ public static String getCurrentSsid(Context context) {
                 radbelow.setEnabled(false);radbelow.setChecked(false);
                 radleft.setEnabled(false);radright.setChecked(false);
                 radright.setEnabled(false);radleft.setChecked(false);
+
+
+
                 f1=2;b1=2;r1=2;l1=2;prev="s";
+
             }
         });
     }
@@ -323,7 +318,9 @@ public static String getCurrentSsid(Context context) {
         while(true){
 
             try {
+                Log.d("notinsideprimr", "run: "+ st + " "+ data);
                 if(data.equals("s") && st==true  ){
+                    Log.d("insideprimr","run: ");
                     gg();
                     break;
                 }
@@ -333,8 +330,10 @@ public static String getCurrentSsid(Context context) {
                     gg();
                     break;
                 }
+                Log.d("gecking0", "run: ");
                 inetAddress = InetAddress.getByName(ip);
                 Socket socket = new Socket(inetAddress,8334);
+                Log.d("gecking", "run: ");
                 InputStreamReader inputStreamReader = new InputStreamReader(socket.getInputStream());
                 d  = (char) (inputStreamReader.read());
                 Log.d("Rombamukkiyam", "run: " + d);
@@ -342,13 +341,14 @@ public static String getCurrentSsid(Context context) {
 
                     @Override
                     public void run() {
+                        Log.d("gecking1", "run: ");
                         if(d=='w'){
-                            if(data.equals("f")){
-                                data="s";
-                                soc();
-                                arrowup.setImageResource(R.drawable.ic_keyboard_arrow_up_black_24dp);
-                            }
-                            f1=1;
+//                            if(data.equals("f")){
+//                                data="s";
+//                                soc();
+//                                arrowup.setImageResource(R.drawable.ic_keyboard_arrow_up_black_24dp);
+//                            }
+//                            f1=1;
                             radup.setEnabled(true);
                             radup.setChecked(true);
                         }
@@ -359,12 +359,12 @@ public static String getCurrentSsid(Context context) {
                         }
 
                         if(d=='x'){
-                            if(data.equals("b")){
-                                data="s";
-                                soc();
-                                arrowbelow.setImageResource(R.drawable.ic_keyboard_arrow_down_black_24dp);
-                            }
-                            b1=1;
+//                            if(data.equals("b")){
+//                                data="s";
+//                                soc();
+//                                arrowbelow.setImageResource(R.drawable.ic_keyboard_arrow_down_black_24dp);
+//                            }
+//                            b1=1;
                             radbelow.setEnabled(true);
                             radbelow.setChecked(true);
                         }
@@ -375,12 +375,12 @@ public static String getCurrentSsid(Context context) {
                         }
 
                         if(d=='y'){
-                            if(data.equals("r")){
-                                arrowright.setImageResource(R.drawable.ic_keyboard_arrow_right_black_24dp);
-                                data="s";
-                                soc();
-                            }
-                            r1=1;
+//                            if(data.equals("r")){
+//                                arrowright.setImageResource(R.drawable.ic_keyboard_arrow_right_black_24dp);
+//                                data="s";
+//                                soc();
+//                            }
+//                            r1=1;
                             radright.setEnabled(true);
                             radright.setChecked(true);
                         }
@@ -391,12 +391,12 @@ public static String getCurrentSsid(Context context) {
                         }
 
                         if(d=='z'){
-                            if(data.equals("l")){
-                                arrowleft.setImageResource(R.drawable.ic_keyboard_arrow_left_black_24dp);
-                                data="s";
-                                soc();
-                            }
-                            l1=1;
+//                            if(data.equals("l")){
+//                                arrowleft.setImageResource(R.drawable.ic_keyboard_arrow_left_black_24dp);
+//                                data="s";
+//                                soc();
+//                            }
+//                            l1=1;
                             radleft.setEnabled(true);
                             radleft.setChecked(true);
                         }
@@ -407,6 +407,7 @@ public static String getCurrentSsid(Context context) {
                         }
                     }
                 });
+                Log.d("gecking2", "run: ");
                 inputStreamReader.close();
                 socket.close();
             } catch (UnknownHostException e) {
@@ -417,9 +418,11 @@ public static String getCurrentSsid(Context context) {
                 e.printStackTrace();
             }
        }
+            Log.d("gecking3", "run: ");
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                Log.d("gecking4", "run: ");
                 countdownstop();
                 st=false;
                 Toast.makeText(getApplicationContext(),"Disconnected",Toast.LENGTH_LONG).show();
@@ -428,7 +431,7 @@ public static String getCurrentSsid(Context context) {
             }
         });
             super.run();
-
+            Log.d("gecking5", "run: ");
         }
     }
     void countdownstart(){
@@ -458,6 +461,13 @@ public static String getCurrentSsid(Context context) {
                         }
                         String time=min+":"+sec;
                         timer.setText(time);
+                        if(minutes%5!=0){
+                            j=0;k=0;
+                        }
+                        else if(minutes%5==0 && k==0){
+                            Toast.makeText(getApplicationContext(),"Check Battery Level",Toast.LENGTH_LONG).show();
+                            k=1;
+                        }
                     }
 
                     @Override
@@ -528,7 +538,7 @@ public static String getCurrentSsid(Context context) {
             try {
 
                 InetAddress inetAddress = InetAddress.getByName(ip);
-                socket = new Socket(inetAddress, 8134);
+                socket = new Socket(inetAddress, 8134    );
                 final InputStreamReader inputStreamReader = new InputStreamReader(socket.getInputStream());
                 dd  = (char) (inputStreamReader.read());
                 runOnUiThread(new Runnable() {
@@ -541,6 +551,7 @@ public static String getCurrentSsid(Context context) {
                             videoView.getSettings().setJavaScriptEnabled(true);
                             videoView.loadUrl(url);
                             connect.setText("Disconnect");
+
                             countdownstart();
                         Toast.makeText(getApplicationContext(),"Connection Established",Toast.LENGTH_LONG).show();
                     }}
@@ -571,5 +582,30 @@ public static String getCurrentSsid(Context context) {
             return null;
         }
         }
+    public  class  Raaj extends AsyncTask<Void,Void,Void>{
+        Socket socket;
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            InetAddress inetAddress = null;
+            try {
+                inetAddress = InetAddress.getByName(ip);
+                socket = new Socket(inetAddress, 8034);
+                final DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
+                dataOutputStream.writeBytes(dete);
+                dataOutputStream.close();
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+
+            return null;
+        }
     }
+    }
+
 
