@@ -259,7 +259,7 @@ arrowup.setOnTouchListener(new View.OnTouchListener() {
 //            try {
 //
 //                InetAddress inetAddress = InetAddress.getByName(ip);
-//                socket = new Socket(inetAddress, 8134);
+//                socket = new Socket(inetAddress, 9134);
 //                final InputStreamReader inputStreamReader = new InputStreamReader(socket.getInputStream());
 //                dd  = (char) (inputStreamReader.read());
 //                inputStreamReader.close();
@@ -332,7 +332,7 @@ arrowup.setOnTouchListener(new View.OnTouchListener() {
                 }
                 Log.d("gecking0", "run: ");
                 inetAddress = InetAddress.getByName(ip);
-                Socket socket = new Socket(inetAddress,8334);
+                Socket socket = new Socket(inetAddress,9334);
                 Log.d("gecking", "run: ");
                 InputStreamReader inputStreamReader = new InputStreamReader(socket.getInputStream());
                 d  = (char) (inputStreamReader.read());
@@ -502,7 +502,7 @@ arrowup.setOnTouchListener(new View.OnTouchListener() {
                 if(!data.equals("s")){
                     prev= data;
                     InetAddress inetAddress = InetAddress.getByName(ip);
-                    socket = new Socket(inetAddress, 8234);
+                    socket = new Socket(inetAddress, 9234);
                     final DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
                     dataOutputStream.writeBytes(data);
                     dataOutputStream.close();
@@ -513,7 +513,7 @@ arrowup.setOnTouchListener(new View.OnTouchListener() {
                         prev= "s";
 
                         InetAddress inetAddress = InetAddress.getByName(ip);
-                        socket = new Socket(inetAddress, 8234);
+                        socket = new Socket(inetAddress, 9234);
                         final DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
                         dataOutputStream.writeBytes(data);
                         dataOutputStream.close();
@@ -538,7 +538,7 @@ arrowup.setOnTouchListener(new View.OnTouchListener() {
             try {
 
                 InetAddress inetAddress = InetAddress.getByName(ip);
-                socket = new Socket(inetAddress, 8134    );
+                socket = new Socket(inetAddress, 9134    );
                 final InputStreamReader inputStreamReader = new InputStreamReader(socket.getInputStream());
                 dd  = (char) (inputStreamReader.read());
                 runOnUiThread(new Runnable() {
@@ -590,7 +590,7 @@ arrowup.setOnTouchListener(new View.OnTouchListener() {
             InetAddress inetAddress = null;
             try {
                 inetAddress = InetAddress.getByName(ip);
-                socket = new Socket(inetAddress, 8034);
+                socket = new Socket(inetAddress, 9034);
                 final DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
                 dataOutputStream.writeBytes(dete);
                 dataOutputStream.close();
